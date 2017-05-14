@@ -23,12 +23,14 @@ namespace OnTheSpot.Dal
         public  OnTheSpot.Models.Employee GetEmployee(int empid)
         {
             Employee emp = null;
+            string error = string.Empty;
             try
             {
                 emp = dbOTS.Employees.Where(e2 => e2.EmployeeID == empid).SingleOrDefault();
             }
             catch (Exception e)
             {
+                error = "Critical Error: Could not open Categories DataBase";
             }
 
             return new OnTheSpot.Models.Employee()

@@ -29,7 +29,7 @@ namespace OnTheSpot.ViewModels
         private bool _bTurnOnRegister = true;
         private bool _bLoggedIn = false;
 
-        public bool bSimulatePhigetsMode = false;     
+        public bool bSimulatePhigetsMode = true;     
         Logger logger = LogManager.GetLogger("OnTheSpot");
         public bool bTurnOnRegister
         {

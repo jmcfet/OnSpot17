@@ -19,14 +19,14 @@ namespace OnTheSpot
     /// </summary>
     public partial class App : Application
     {
-        public bool bQSS = true;
-        public bool bBCS = false;
-        public BaseViewModel vm = new QSSVM();
+        public bool bQSS = false;
+        public bool bBCS = true;
+   //     public BaseViewModel vm = new QSSVM();
        
   //      public BaseViewModel vm = new GSSVM();
 
  
- //       public BaseViewModel vm = new BCSandGSSVM(true);
+        public BaseViewModel vm = new BCSandGSSVM(true);
          
     }
 }

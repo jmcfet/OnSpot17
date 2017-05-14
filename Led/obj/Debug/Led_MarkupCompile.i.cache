@@ -4,7 +4,7 @@
 library
 C#
 .cs
-C:\OnTheSpotSource\OnTheSpot\Led\obj\Debug\
+C:\Repos\OnSpot17\Led\obj\Debug\
 Led
 none
 false
@@ -12,9 +12,9 @@ DEBUG;TRACE
 
 1-1403452675
 
-6591043091
+61621100220
 12-1381780322
 Led.xaml;
 
-False
+True
 

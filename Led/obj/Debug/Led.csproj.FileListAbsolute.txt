@@ -194,3 +194,16 @@ C:\Users\User\Dropbox\OnTheSpotSource\OnTheSpot\Led\obj\Debug\Led.Properties.Res
 C:\Users\User\Dropbox\OnTheSpotSource\OnTheSpot\Led\obj\Debug\Led.csproj.GenerateResource.Cache
 C:\Users\User\Dropbox\OnTheSpotSource\OnTheSpot\Led\obj\Debug\Led.dll
 C:\Users\User\Dropbox\OnTheSpotSource\OnTheSpot\Led\obj\Debug\Led.pdb
+C:\Repos\OnSpot17\Led\bin\Debug\Led.dll
+C:\Repos\OnSpot17\Led\bin\Debug\Led.pdb
+C:\Repos\OnSpot17\Led\obj\Debug\Led.csprojResolveAssemblyReference.cache
+C:\Repos\OnSpot17\Led\obj\Debug\Led.g.cs
+C:\Repos\OnSpot17\Led\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Repos\OnSpot17\Led\obj\Debug\Led_MarkupCompile.cache
+C:\Repos\OnSpot17\Led\obj\Debug\Led_MarkupCompile.lref
+C:\Repos\OnSpot17\Led\obj\Debug\Led.baml
+C:\Repos\OnSpot17\Led\obj\Debug\Led.g.resources
+C:\Repos\OnSpot17\Led\obj\Debug\Led.Properties.Resources.resources
+C:\Repos\OnSpot17\Led\obj\Debug\Led.csproj.GenerateResource.Cache
+C:\Repos\OnSpot17\Led\obj\Debug\Led.dll
+C:\Repos\OnSpot17\Led\obj\Debug\Led.pdb
