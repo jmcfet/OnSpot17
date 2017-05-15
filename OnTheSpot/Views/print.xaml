@@ -30,11 +30,11 @@
             <RowDefinition Height="100"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="50"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="50"></ColumnDefinition>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+            <ColumnDefinition Width="280"></ColumnDefinition>
+            <ColumnDefinition Width="20"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <TextBlock x:Name="Duedate"  Grid.Row="1" Grid.Column="1"  VerticalAlignment="Top" Width="420" Height="50" Style="{StaticResource TextLabel}" FontSize="32" />
+        <TextBlock x:Name="Duedate"  Grid.Row="1" Grid.Column="1"  VerticalAlignment="Top" Width="420" Height="50" Style="{StaticResource TextLabel}" FontSize="34" />
         <TextBlock x:Name="CustomerName"  Style="{StaticResource TextLabel}" Grid.Row="2" Grid.Column="1"   VerticalAlignment="Top" Width="400"/>
         <TextBlock x:Name="Store" HorizontalAlignment="Center"  Style="{StaticResource TextLabel}" Grid.Row="3" Grid.Column="1" VerticalAlignment="Top" Width="400"/>
         <Border BorderThickness="1"  Grid.Row="4" Grid.Column="1" Width="100"  Height="30" BorderBrush="Black">
