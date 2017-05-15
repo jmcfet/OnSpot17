@@ -147,7 +147,7 @@ namespace OnTheSpot.Views
                 if (date.Date <= DateTime.Now.Date)
                     duedate.Text = "TODAY";
                 else
-                    duedate.Text = date.DayOfWeek.ToString() + "/" + date.Day + "/" + date.Month;
+                    duedate.Text = date.DayOfWeek.ToString() + " " + date.Day ;
                
                 vm.Duedate = duedate.Text;
                 CustomerName.Text = vm.activeCustomer.FirstName + " " + vm.activeCustomer.LastName;
