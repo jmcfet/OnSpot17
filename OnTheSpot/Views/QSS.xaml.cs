@@ -194,7 +194,7 @@ namespace OnTheSpot.Views
         {
            
             double itemCode = 0;
-  //          Barcode.Text = "1000171823";      //DANGER
+            Barcode.Text = "1000446907";      //DANGER
             logger.Info("Read bar code " + Barcode.Text);
             if (Barcode.Text == string.Empty)
                 return false;
