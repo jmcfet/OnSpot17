@@ -147,7 +147,8 @@ namespace OnTheSpot.Views
                 if (date.Date <= DateTime.Now.Date)
                     duedate.Text = "TODAY";
                 else
-                    duedate.Text = date.ToShortDateString();
+                    duedate.Text = date.DayOfWeek.ToString() + "/" + date.Day + "/" + date.Month;
+               
                 vm.Duedate = duedate.Text;
                 CustomerName.Text = vm.activeCustomer.FirstName + " " + vm.activeCustomer.LastName;
                 //check if this is in Route

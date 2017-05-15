@@ -21,12 +21,13 @@ namespace OnTheSpot
     {
         public bool bQSS = true;
         public bool bBCS = false;
-        public BaseViewModel vm = new QSSVM();
        
-  //      public BaseViewModel vm = new GSSVM();
+        public BaseViewModel vm = new QSSVM();
 
- 
-  //      public BaseViewModel vm = new BCSandGSSVM(true);
-         
+        //      public BaseViewModel vm = new GSSVM();
+
+
+        //      public BaseViewModel vm = new BCSandGSSVM(true);
+       
     }
 }
