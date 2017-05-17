@@ -216,6 +216,8 @@ namespace OnTheSpot
                 vm.ClassifyButtonText = "Admin Off";
                 vm.ReClassifyButtonText = "ReClassify On";
                 vm.QuickReClassifyButtonText = "Quick reclassify On";
+                vm.BatchButtonText = "Batch On";
+                BatchBCS.Visibility = Visibility.Visible;
                 QuickReClassify.Visibility = Visibility.Visible;
                 Classify.Visibility = Visibility.Visible;
                 if (registerView != null)
@@ -265,6 +267,33 @@ namespace OnTheSpot
             registerView.SetFocusBarcode();
 
         }
+        private void BatchBCS_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (vm.BatchButtonText == "Batch Off")
+            {
+                vm.BatchButtonText = "Batch On";
+                registerView.BatchOff();
+                ReClassify.Visibility = Visibility.Visible;
+                QuickReClassify.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                vm.BatchButtonText = "Batch Off";
+                vm.bSimulatePhigetsMode = true;
+                registerView.Barcode.IsEnabled = false;
+                registerView.ShowCategoryButtons();
+                registerView.Errormsg.Text = "select a bin";
+                registerView.ErrorTxt.Visibility = Visibility.Visible;
+                registerView.ErrorTxt.Background = new SolidColorBrush(Colors.Gray);
+                ReClassify.Visibility = Visibility.Collapsed;
+                QuickReClassify.Visibility = Visibility.Collapsed;
+            }
+       
+            registerView.SetFocusBarcode();
+
+        }
+        
         //let an admin change the items classification
         private void Reclassify_click(object sender, RoutedEventArgs e)
         {

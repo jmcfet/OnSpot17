@@ -28,7 +28,7 @@ namespace OnTheSpot.ViewModels
         public string WindowID;
         private bool _bTurnOnRegister = true;
         private bool _bLoggedIn = false;
-
+// this is used for developing when there is no hardware and to allow batch mode in BCS to work
         public bool bSimulatePhigetsMode = true;     
         Logger logger = LogManager.GetLogger("OnTheSpot");
         public bool bTurnOnRegister
@@ -104,6 +104,19 @@ namespace OnTheSpot.ViewModels
                 {
                     _QuickReClassifyButtonText = value;
                     NotifyPropertyChanged("QuickReClassifyButtonText");
+                }
+            }
+        }
+        private string _batchButtonText;
+        public string BatchButtonText
+        {
+            get { return _batchButtonText; }
+            set
+            {
+                if (_batchButtonText != value)
+                {
+                    _batchButtonText = value;
+                    NotifyPropertyChanged("BatchButtonText");
                 }
             }
         }
