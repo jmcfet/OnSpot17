@@ -37,8 +37,8 @@ namespace OnTheSpot.Views
         DispatcherTimer timer2 = null;
         AutoSortInfo assemblyInfo = null;
         bool bNextDay = false;
-        List<string> scancodes = new List<string>();
-        List<string> testCodes = new List<string>() { "1000446921", "1000446923", "1000446919", "1000446918", "1000446917" };
+        
+        List<string> testCodes = new List<string>() { "1000446921", "1000446923", "1000446919", "1000446918", "1000446917", "1000446916", "1000446915" , "1000446914" };
         int dumcode = 0;
         Category catForBatch = null;
         public RegisterItem()
@@ -137,7 +137,7 @@ namespace OnTheSpot.Views
             logger.Info(string.Format("all data obtained for {0} ", barcode));
             if (vm.BatchButtonText == "Batch Off")
             {
-                scancodes.Add(barcode);
+                vm.scancodes.Add(barcode);
                 Errormsg.Text = string.Format("Start scaning {0} items and hit Batch off when finished", catForBatch.Name);
                 ErrorTxt.Background = new SolidColorBrush(Colors.Gray);
                 Barcode.Text = "";
@@ -280,7 +280,7 @@ namespace OnTheSpot.Views
             
 
         }
-
+        //show buttons for all the categorys.
         public void ShowCategoryButtons()
         {
             int ii = 0;
@@ -302,13 +302,14 @@ namespace OnTheSpot.Views
 
         public void BatchOff()
         {
-            foreach(string barcode in scancodes)
+            foreach(string barcode in vm.scancodes)
             {
                 Item item = vm.GetItemInDB(barcode);
                 item.Category = catForBatch;
                 vm.SaveItem(item);
             }
             ErrorTxt.Visibility = Visibility.Hidden;
+            Codes.Visibility = Visibility.Collapsed;
             Barcode.Text = "";
             Barcode.Focus();
             BarcodeChars = 0;
@@ -318,22 +319,21 @@ namespace OnTheSpot.Views
         void but_Click(object sender, RoutedEventArgs e)
         {
             
-            //Button but = sender as Button;
-            //Brush old = but.Background;
-            //but.Background = new SolidColorBrush(Colors.Black);
-            string catName = (string)(sender as Button).Content;
-           
             
+            string catName = (string)(sender as Button).Content;
+            catForBatch = vm.CleaningCats.Where(c => c.Name == catName).Single();
+
             if (vm.BatchButtonText == "Batch Off")
             {
                 Errormsg.Text = string.Format("Start scaning {0} items and hit Batch off when finished", catName);
                 Barcode.IsEnabled = true;
                 ButRow1.Visibility = Visibility.Collapsed;
                 ButRow2.Visibility = Visibility.Collapsed;
-                catForBatch  =   vm.CleaningCats.Where(c => c.Name == catName).Single();
+                Codes.Visibility = Visibility.Visible;
+                
                 return;
             }
-            item.Category = vm.CleaningCats.Where(c => c.Name == catName).Single();
+            item.Category = catForBatch;
             if (vm.QuickReClassifyButtonText == "Quick Reclassify Off")    //if in QuickClassy mode then do not wait for feedback
             {
                 vm.SaveItem(item);
@@ -569,7 +569,7 @@ namespace OnTheSpot.Views
             double itemCode = 0;
 
 
-     //       Barcode.Text = testCodes[dumcode++];      //DANGER
+            Barcode.Text = testCodes[dumcode++];      //DANGER
             logger.Info("Read bar code " + Barcode.Text);
             if (Barcode.Text == string.Empty)
                 return false;

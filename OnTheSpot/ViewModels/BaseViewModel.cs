@@ -68,6 +68,7 @@ namespace OnTheSpot.ViewModels
                 }
             }
         }
+        
         private string _ClassifyButtonText;
         public string ClassifyButtonText
         {
@@ -122,6 +123,8 @@ namespace OnTheSpot.ViewModels
         }
         public Category cat = null;
         public bool bReceivedAlready = false;
+        public ObservableCollection<string> scancodes { get; set; }
+        
         public ObservableCollection<Bin> CleaningBins{ get; set; }
         public ObservableCollection<Item> Items { get; set; }
         public ObservableCollection<Category> CleaningCats { get; set; }
@@ -138,9 +141,10 @@ namespace OnTheSpot.ViewModels
             stores.Add("store2");
             stores.Add("store3");
             stores.Add("store4");
-            
+            scancodes = new ObservableCollection<string>();
 
-        }
+
+    }
         public bool bShowWorkorder = false;
 
         public void OpenDB(string connectionString)

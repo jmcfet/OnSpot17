@@ -288,6 +288,7 @@ namespace OnTheSpot
                 registerView.ErrorTxt.Background = new SolidColorBrush(Colors.Gray);
                 ReClassify.Visibility = Visibility.Collapsed;
                 QuickReClassify.Visibility = Visibility.Collapsed;
+               
             }
        
             registerView.SetFocusBarcode();

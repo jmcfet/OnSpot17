@@ -77,16 +77,12 @@
                         HorizontalAlignment="Stretch"  Grid.Row="3" Grid.Column="2"
                         Name="Barcode"  Height="40" FontSize="20"
                         VerticalAlignment="Top" TextDecorations="None" />
-        
-            <!--<TextBlock Style="{StaticResource TextLabel}"                        
-                         Name="CatLabel" 
-                         Width="91"  Grid.Row="3" Grid.Column="1" Visibility="Hidden">Category:</TextBlock>
-            <TextBlock Height="23" HorizontalAlignment="Left" Name="Cat" Text="" Foreground="White" VerticalAlignment="Top" Width="172" Grid.Row="3" Grid.Column="2" Visibility="Hidden" FontSize="20" />
-            <ComboBox Height="23" ItemsSource="{Binding CleaningCats}"  DisplayMemberPath="Name"   HorizontalAlignment="Right"  Grid.Row="3" Grid.Column="2" Name="CatsCombo" Visibility="Hidden" VerticalAlignment="Top" Width="172" SelectionChanged="CatsCombo_SelectionChanged" />-->
+            
             <StackPanel x:Name="ButRow1" Orientation="Horizontal"  Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="5"></StackPanel>
-            <StackPanel x:Name="ButRow2" Orientation="Horizontal"  Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="5">
-               
-            </StackPanel>
+            <StackPanel x:Name="ButRow2" Orientation="Horizontal"  Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="5"/>
+            <ListBox Name="Codes" ItemsSource="{Binding scancodes}" Width="250" Margin="0,5,0,10" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="5" Grid.RowSpan="2" Background="Azure"  Visibility="Collapsed"/>
+
+
             <Button Content="Clear" Grid.Column="3" Grid.Row="3" Height="30" HorizontalAlignment="Left" Margin="34,4,0,0" Name="Cleartext" VerticalAlignment="Top" Width="47" Click="Cleartext_Click" />
          </Grid>
         
