@@ -43,6 +43,7 @@ namespace OnTheSpot
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
+           
             if (((App)Application.Current).bQSS)
                 this.Title = "On the Spot QCS";
             else if (((App)Application.Current).bBCS)
@@ -281,6 +282,11 @@ namespace OnTheSpot
             {
                 vm.BatchButtonText = "Batch Off";
                 vm.bSimulatePhigetsMode = true;
+                if (registerView == null)
+                {
+                    registerView = new RegisterItem();
+                    Views.Children.Add(registerView);
+                }
                 registerView.Barcode.IsEnabled = false;
                 registerView.ShowCategoryButtons();
                 registerView.Errormsg.Text = "select a bin";

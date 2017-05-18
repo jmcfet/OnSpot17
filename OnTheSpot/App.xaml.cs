@@ -1,4 +1,5 @@
-﻿using OnTheSpot.ViewModels;
+﻿using NLog;
+using OnTheSpot.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -28,6 +29,20 @@ namespace OnTheSpot
 
 
              public BaseViewModel vm = new BCSandGSSVM(true);
-       
+        
+            public App()
+            {
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            }
+
+        private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            Logger logger = LogManager.GetLogger("BCS");
+            Exception e1 = (Exception)e.ExceptionObject;
+            MessageBox.Show(e1.Message, "exception thrown");
+            logger.Info(e1.Message);
+            logger.Info(e1.InnerException);
+            logger.Info(e1.StackTrace);
+        }
     }
 }

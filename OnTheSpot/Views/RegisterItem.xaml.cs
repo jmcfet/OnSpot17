@@ -38,7 +38,7 @@ namespace OnTheSpot.Views
         AutoSortInfo assemblyInfo = null;
         bool bNextDay = false;
         
-        List<string> testCodes = new List<string>() { "1000446921", "1000446923", "1000446919", "1000446918", "1000446917", "1000446916", "1000446915" , "1000446914" };
+        List<string> testCodes = new List<string>() { "1000464541", "1000446923", "1000446919", "1000446918", "1000446917", "1000446916", "1000446915" , "1000446914" };
         int dumcode = 0;
         Category catForBatch = null;
         public RegisterItem()
@@ -284,6 +284,8 @@ namespace OnTheSpot.Views
         public void ShowCategoryButtons()
         {
             int ii = 0;
+            ButRow1.Visibility = Visibility.Visible;   //batch renders these inVisible
+            ButRow2.Visibility = Visibility.Visible;
             foreach (Category cat in vm.CleaningCats)
             {
                 if (cat.ID == vm.unknownCat.ID)
@@ -310,6 +312,8 @@ namespace OnTheSpot.Views
             }
             ErrorTxt.Visibility = Visibility.Hidden;
             Codes.Visibility = Visibility.Collapsed;
+            CustomerName.Text = " ";
+            vm.scancodes.Clear();
             Barcode.Text = "";
             Barcode.Focus();
             BarcodeChars = 0;
@@ -569,7 +573,7 @@ namespace OnTheSpot.Views
             double itemCode = 0;
 
 
-            Barcode.Text = testCodes[dumcode++];      //DANGER
+  //          Barcode.Text = testCodes[dumcode++];      //DANGER
             logger.Info("Read bar code " + Barcode.Text);
             if (Barcode.Text == string.Empty)
                 return false;
