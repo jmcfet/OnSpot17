@@ -124,7 +124,7 @@ namespace OnTheSpot.ViewModels
         public Category cat = null;
         public bool bReceivedAlready = false;
         public ObservableCollection<string> scancodes { get; set; }
-        
+        public ObservableCollection<string> errorcodes { get; set; }
         public ObservableCollection<Bin> CleaningBins{ get; set; }
         public ObservableCollection<Item> Items { get; set; }
         public ObservableCollection<Category> CleaningCats { get; set; }
@@ -142,7 +142,7 @@ namespace OnTheSpot.ViewModels
             stores.Add("store3");
             stores.Add("store4");
             scancodes = new ObservableCollection<string>();
-
+            errorcodes = new ObservableCollection<string>();
 
     }
         public bool bShowWorkorder = false;

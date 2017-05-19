@@ -111,24 +111,32 @@ namespace OnTheSpot.Views
                 assemblyInfo = vm.getItemInAssemblyDB(barcode);
                 if (assemblyInfo == null)        
                 {
-                    BarcodeChars = 0;
+                    ClearInput();
                     Errormsg.Text = string.Format(string.Format("Item has not been marked in {0}", barcode));
                     ErrorTxt.Background = new SolidColorBrush(Colors.Red);
                     ErrorTxt.Visibility = Visibility.Visible;
+                    if (vm.BatchButtonText == "Batch Off")
+                    {
+                        vm.errorcodes.Add(barcode);
+                        ErrorCodes.Visibility = Visibility.Visible;
+                    }
                     return;
                 }
                 vm.GetCustomer(assemblyInfo.CustomerID);
                 CustomerName.Text = vm.activeCustomer.FirstName + " " + vm.activeCustomer.LastName;
                 if (vm.BCSMode)
                 {
-                    //check if the item is in BCS database
+                    //check if the item is in BCS Codes
                     item = vm.GetItemInDB(barcode);
-                    if (item == null)
+                    //if we are in batch mode then it must be already in BCS 
+                    if (item == null && vm.BatchButtonText == "Batch Off")
                     {
-                        BarcodeChars = 0;
-                        Errormsg.Text = string.Format(string.Format("Item has not been marked in {0}", barcode));
+                        vm.errorcodes.Add(barcode);
+                        ErrorCodes.Visibility = Visibility.Visible;
                         ErrorTxt.Background = new SolidColorBrush(Colors.Red);
+                        Errormsg.Text = string.Format(string.Format("item {0} not in BCS", barcode));
                         ErrorTxt.Visibility = Visibility.Visible;
+                        ClearInput();
                         return;
                     }
                 }
@@ -146,11 +154,10 @@ namespace OnTheSpot.Views
             if (vm.BatchButtonText == "Batch Off")
             {
                 vm.scancodes.Add(barcode);
-                Errormsg.Text = string.Format("Start scaning {0} items and hit Batch off when finished", catForBatch.Name);
+                Codes.Visibility = Visibility.Visible;
+                Errormsg.Text = string.Format("Scan {0} items and hit Batch off when finished", catForBatch.Name);
                 ErrorTxt.Background = new SolidColorBrush(Colors.Gray);
-                Barcode.Text = "";
-                Barcode.Focus();
-                BarcodeChars = 0;
+                ClearInput();
                 return;
             }
             if (!vm.BCSMode)
@@ -322,9 +329,7 @@ namespace OnTheSpot.Views
             Codes.Visibility = Visibility.Collapsed;
             CustomerName.Text = " ";
             vm.scancodes.Clear();
-            Barcode.Text = "";
-            Barcode.Focus();
-            BarcodeChars = 0;
+            ClearInput();
 
         }
 
@@ -341,7 +346,7 @@ namespace OnTheSpot.Views
                 Barcode.IsEnabled = true;
                 ButRow1.Visibility = Visibility.Collapsed;
                 ButRow2.Visibility = Visibility.Collapsed;
-                Codes.Visibility = Visibility.Visible;
+              
                 
                 return;
             }
@@ -373,14 +378,20 @@ namespace OnTheSpot.Views
         {
             grid1.Visibility = Visibility.Hidden;
             TopGrid.Visibility = Visibility.Hidden;
-            Barcode.Text = "";
+            
             ButRow1.Visibility = Visibility.Collapsed;
             ButRow2.Visibility = Visibility.Collapsed;
+            ClearInput();
+  //          CatsCombo.Visibility = Visibility.Hidden;
+
+
+        }
+
+        void ClearInput()
+        {
+            Barcode.Text = "";
             Barcode.Focus();
             BarcodeChars = 0;
-  //          CatsCombo.Visibility = Visibility.Hidden;
-            
-           
         }
         void ClearItemFields()
         {
@@ -581,7 +592,7 @@ namespace OnTheSpot.Views
             double itemCode = 0;
 
 
-   //         Barcode.Text = testCodes[dumcode++];      //DANGER
+            Barcode.Text = testCodes[dumcode++];      //DANGER
             logger.Info("Read bar code " + Barcode.Text);
             if (Barcode.Text == string.Empty)
                 return false;

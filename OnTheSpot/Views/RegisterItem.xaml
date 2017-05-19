@@ -80,9 +80,14 @@
             
             <StackPanel x:Name="ButRow1" Orientation="Horizontal"  Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="5"></StackPanel>
             <StackPanel x:Name="ButRow2" Orientation="Horizontal"  Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="5"/>
-            <ListBox Name="Codes" ItemsSource="{Binding scancodes}" Width="250" Margin="0,5,0,10" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="5" Grid.RowSpan="2" Background="Azure"  Visibility="Collapsed"/>
-
-
+            <StackPanel  Name="Codes" Orientation="Vertical" Grid.Row="5" Grid.Column="1"  Grid.RowSpan="2"  Visibility="Collapsed">
+                <TextBlock Text="SucessFul" Height="20" Background="LightGreen"></TextBlock>
+            <ListBox ItemsSource="{Binding scancodes}" Width="250" Margin="0,5,0,10"  Background="Azure" />
+            </StackPanel>
+            <StackPanel  Name="ErrorCodes" Orientation="Vertical" Grid.Row="5" Grid.Column="4"  Grid.RowSpan="2"  Visibility="Collapsed">
+                <TextBlock Text="Failed" Height="20" Background="Red"></TextBlock>
+                <ListBox  ItemsSource="{Binding errorcodes}" Width="250" Margin="0,5,0,10"  Background="Azure"  />
+            </StackPanel>
             <Button Content="Clear" Grid.Column="3" Grid.Row="3" Height="30" HorizontalAlignment="Left" Margin="34,4,0,0" Name="Cleartext" VerticalAlignment="Top" Width="47" Click="Cleartext_Click" />
          </Grid>
         
