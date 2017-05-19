@@ -38,7 +38,7 @@ namespace OnTheSpot.Views
         AutoSortInfo assemblyInfo = null;
         bool bNextDay = false;
         
-        List<string> testCodes = new List<string>() { "1000464541", "1000446923", "1000446919", "1000446918", "1000446917", "1000446916", "1000446915" , "1000446914" };
+        List<string> testCodes = new List<string>() { "1000464542", "1000446923", "1000446919", "1000446918", "1000446917", "1000446916", "1000446915" , "1000446914" };
         int dumcode = 0;
         Category catForBatch = null;
         public RegisterItem()
@@ -123,6 +123,14 @@ namespace OnTheSpot.Views
                 {
                     //check if the item is in BCS database
                     item = vm.GetItemInDB(barcode);
+                    if (item == null)
+                    {
+                        BarcodeChars = 0;
+                        Errormsg.Text = string.Format(string.Format("Item has not been marked in {0}", barcode));
+                        ErrorTxt.Background = new SolidColorBrush(Colors.Red);
+                        ErrorTxt.Visibility = Visibility.Visible;
+                        return;
+                    }
                 }
                
                
@@ -573,7 +581,7 @@ namespace OnTheSpot.Views
             double itemCode = 0;
 
 
-  //          Barcode.Text = testCodes[dumcode++];      //DANGER
+   //         Barcode.Text = testCodes[dumcode++];      //DANGER
             logger.Info("Read bar code " + Barcode.Text);
             if (Barcode.Text == string.Empty)
                 return false;
