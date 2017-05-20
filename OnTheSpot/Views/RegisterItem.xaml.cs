@@ -327,6 +327,8 @@ namespace OnTheSpot.Views
             }
             ErrorTxt.Visibility = Visibility.Hidden;
             Codes.Visibility = Visibility.Collapsed;
+            ErrorCodes.Visibility = Visibility.Collapsed;
+               
             CustomerName.Text = " ";
             vm.scancodes.Clear();
             ClearInput();
