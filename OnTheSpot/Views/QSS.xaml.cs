@@ -19,6 +19,7 @@ using OnTheSpot.ViewModels;
 using OnTheSpot.Models;
 using System.Windows.Media.Animation;
 using System.IO;
+using Microsoft.Win32;
 
 namespace OnTheSpot.Views
 {
@@ -30,12 +31,16 @@ namespace OnTheSpot.Views
         //I used the vm as a global class so must check the casting as only one VM is active
         QSSVM vm = null;
         string employeeID ;
+        List<string> testCodes = new List<string>() { "1000446921", "1000446923", "1000446919", "1000446918", "1000446917", "1000446916", "1000446915", "1000446914" };
+        int dumcode =1;
         List<string> buttonLabels = new List<string>() { "Spots", "Repairs/Buttons", "Repressing" };
         int BarcodeChars = 0;
         DispatcherTimer timer2 = null;
         bool bClearPressed = false;
         Logger logger = LogManager.GetLogger("BCS");
-        BitmapImage bi;
+        BitmapImage bitmap;
+        Item item;
+        string imgName;
 
         public QSS()
         {
@@ -106,9 +111,10 @@ namespace OnTheSpot.Views
         void timer2_Tick(object sender, EventArgs e)
         {
             timer2.Stop();
-            Item item;
+           
             if (!ProcessBarcode())
                 return;
+            Mouse.OverrideCursor = Cursors.Wait;
             vm.barcode = Barcode.Text;
             AutoSortInfo assemblyInfo = null;
             //check that the item is in the Assembly database if not then show message and allow more items
@@ -121,6 +127,7 @@ namespace OnTheSpot.Views
                     BarcodeChars = 0;
                     Errormsg.Text = string.Format(string.Format("Item has not been marked in {0}", Barcode.Text));
                     ErrorTxt.Visibility = Visibility.Visible;
+                    Mouse.OverrideCursor = null;
                     return;
                 }
                 vm.GetCustomer(assemblyInfo.CustomerID);
@@ -129,8 +136,10 @@ namespace OnTheSpot.Views
                 {
                     Errormsg.Text = string.Format(string.Format("item is not in BCS  {0} .. do not QA ", Barcode.Text));
                     ErrorTxt.Visibility = Visibility.Visible;
+                    Mouse.OverrideCursor = null;
                     return;
                 }
+                vm.BarcodeEntered = true;
                 NoteBox.Visibility = System.Windows.Visibility.Collapsed;
                 if (item.Note != null && item.Note != string.Empty)
                 {
@@ -175,19 +184,21 @@ namespace OnTheSpot.Views
                 BarcodeChars = 0;
                 Errormsg.Text = string.Format(string.Format("Database logic error {0} {1}", Barcode.Text, e1.Message));
                 ErrorTxt.Visibility = Visibility.Visible;
+                Mouse.OverrideCursor = null;
                 return;
             }
+            Mouse.OverrideCursor = null;
             logger.Info(string.Format("all data obtained for {0} ", Barcode.Text));
             //if there is a picture then display it
-            if (item.picture == null)
+            if (item.picture == null || !vm.bLoggedIn  )
                 return;
             picture.Visibility = Visibility.Visible;
             byte [] binaryData = Convert.FromBase64String(item.picture);
-            bi = new BitmapImage();
-            bi.BeginInit();
-            bi.StreamSource = new MemoryStream(binaryData);
-            bi.EndInit();
-            img.Source = bi;
+            bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            bitmap.StreamSource = new MemoryStream(binaryData);
+            bitmap.EndInit();
+            img.Source = bitmap;
            
         }
 
@@ -195,7 +206,7 @@ namespace OnTheSpot.Views
         {
            
             double itemCode = 0;
-            Barcode.Text = "1000446907";      //DANGER
+            Barcode.Text = testCodes[dumcode++];     //danger
             logger.Info("Read bar code " + Barcode.Text);
             if (Barcode.Text == string.Empty)
                 return false;
@@ -259,7 +270,7 @@ namespace OnTheSpot.Views
             //UI.BeginAnimation(Line.OpacityProperty, da);
 
             Login.Visibility = Visibility.Collapsed;
-            msg.Text = vm.Employeename + " currently logged in";
+            msg.Text = vm.Employeename + " logged in";
             Loggedin.Visibility = Visibility.Visible;
             Note.Visibility = Visibility.Hidden;
             if (employeeID == "1")
@@ -275,9 +286,10 @@ namespace OnTheSpot.Views
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-           
+            
             Button but = sender as Button;
             vm.reason = but.Content as string;
+           
             string message = vm.saveQCS(Barcode.Text, vm.reason);
             if (message != string.Empty)
             {
@@ -287,10 +299,11 @@ namespace OnTheSpot.Views
             }
             print popup = new print();
             popup.ShowDialog();
+            
             Barcode.Text = "";
             Barcode.Focus();
             BarcodeChars = 0;
-          
+            vm.BarcodeEntered = false;
 
         }
 
@@ -301,6 +314,31 @@ namespace OnTheSpot.Views
             UI.Visibility = Visibility.Collapsed;
             ShowPass.Visibility = Visibility.Collapsed;
         }
+
+        public void GetPic()
+        {
+            OpenFileDialog openFileDialog = null;
+            string picturesPath = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+            openFileDialog = new OpenFileDialog() { InitialDirectory = picturesPath, Title = "select picture" };
+            if (openFileDialog.ShowDialog() == true)
+            {
+                imgName = openFileDialog.FileName;
+                bitmap = new BitmapImage(new Uri(openFileDialog.FileName));
+                img.Source = bitmap;
+            }
+            picture.Visibility = Visibility.Visible;
+
+        }
+        public void SavePic()
+        {
+            byte[] imageBytes = File.ReadAllBytes(imgName);
+            item.picture = Convert.ToBase64String(imageBytes);
+            Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
+            vm.SaveItem(item, true);
+            Mouse.OverrideCursor = null;
+
+        }
+           
 
         private void Clear_Click_1(object sender, RoutedEventArgs e)
         {
@@ -327,7 +365,13 @@ namespace OnTheSpot.Views
             NoteBox.Visibility = Visibility.Visible;
 
         }
-
+        public void SetFocusEmployeeId()
+        {
+            
+            Keyboard.Focus(EmployeeID);
+            Errormsg.Text = "Administrator Mode";
+            ErrorTxt.Visibility = Visibility.Visible;
+        }
         private void Pass_Click(object sender, RoutedEventArgs e)
         {
             string label = ShowPass.Content as string;
@@ -350,6 +394,7 @@ namespace OnTheSpot.Views
         {
 
         }
+       
         private ImageSource GetThumbnail(string fileName)
         {
             byte[] buffer = File.ReadAllBytes(fileName);
@@ -369,9 +414,11 @@ namespace OnTheSpot.Views
         private void ImgButtonClick(object sender, RoutedEventArgs e)
         {
             ItemImage popup = new ItemImage();
-            popup.picture = bi;
+            popup.picture = bitmap;
             popup.ShowDialog();
 
         }
+
+       
     }
 }

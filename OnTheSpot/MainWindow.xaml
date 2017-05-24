@@ -29,12 +29,13 @@
                 <Label Content="Password" Height="31" Name="label4" Width="75"  FontSize="15" Visibility="Collapsed"/>
                 <PasswordBox  Height="23" Name="passwordBox1" Width="120" Visibility="Collapsed"/>
                 <Button Content=">" Height="21" Name="passwordEntered" Width="36"  Click="passwordEntered_Click" Visibility="Collapsed"/>
-               
-                <Button Content="{Binding ClassifyButtonText}" Height="40" Name="Classify" Visibility="Collapsed" Width="77"  Click="Classify_Click"/>
+
+                <Button Content="{Binding ClassifyButtonText}" Height="40" Name="Classify" Visibility="Collapsed" Width="77" Margin="12" Click="Classify_Click"/>
                 <Button Content="{Binding ReClassifyButtonText}" Height="40" Name="ReClassify" Visibility="Collapsed" Width="88" Click="Reclassify_click" />
                 <Button Content="{Binding QuickReClassifyButtonText}" Height="40" Name="QuickReClassify" Visibility="Collapsed" Width="120" Click="QickClassify_Click"/>
                 <Button Content="{Binding BatchButtonText}" Height="40" Name="BatchBCS" Visibility="Collapsed" Width="120" Click="BatchBCS_Click"/>
-
+                <Button Content="Get Picture" Height="40" Name="TakePic" Margin="12 0"  Visibility="{Binding BarcodeEntered, Converter={StaticResource BooleanToVisibilityConverter}}" Width="120" Click="TakePic_Click"/>
+                <Button Content="Save Picture" Height="40" Name="SavePic" Visibility="{Binding BarcodeEntered, Converter={StaticResource BooleanToVisibilityConverter}}" Width="120" Click="SavePic_Click"/>
                 <Button Content="Version" Height="21" Name="version" Width="67" Margin="12" Click="version_Click" />
             </StackPanel>
         </Grid>

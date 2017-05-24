@@ -43,9 +43,16 @@ namespace OnTheSpot
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-           
+
             if (((App)Application.Current).bQSS)
+            {
                 this.Title = "On the Spot QCS";
+                passwordBox1.Visibility = Visibility.Visible;
+                label4.Visibility = Visibility.Visible;
+                label1.Visibility = Visibility.Visible;
+                passwordEntered.Visibility = Visibility.Visible;
+            }
+
             else if (((App)Application.Current).bBCS)
             {
                 this.Title = "On the Spot BCS";
@@ -214,19 +221,26 @@ namespace OnTheSpot
             if (pass == "tennis")
             {
                 vm.bLoggedIn = true;
-                vm.ClassifyButtonText = "Admin Off";
-                vm.ReClassifyButtonText = "ReClassify On";
-                vm.QuickReClassifyButtonText = "Quick reclassify On";
-                vm.BatchButtonText = "Batch On";
-                BatchBCS.Visibility = Visibility.Visible;
-                QuickReClassify.Visibility = Visibility.Visible;
-                Classify.Visibility = Visibility.Visible;
+                if (((App)Application.Current).bBCS)
+                {
+                    vm.ClassifyButtonText = "Admin Off";
+                    vm.ReClassifyButtonText = "ReClassify On";
+                    vm.QuickReClassifyButtonText = "Quick reclassify On";
+                    vm.BatchButtonText = "Batch On";
+                    BatchBCS.Visibility = Visibility.Visible;
+                    QuickReClassify.Visibility = Visibility.Visible;
+                    Classify.Visibility = Visibility.Visible;
+                }
+
+               
                 if (registerView != null)
                 {
                     ReClassify.Visibility = Visibility.Visible;
 
                     registerView.SetFocusBarcode();
                 }
+                else if (qssView != null)
+                    qssView.SetFocusEmployeeId();
             }
 
         }
@@ -307,6 +321,16 @@ namespace OnTheSpot
             vm.ReClassifyButtonText = "ReClassify Off";
             registerView.SetFocusBarcode();
 
+        }
+
+        private void TakePic_Click(object sender, RoutedEventArgs e)
+        {
+            qssView.GetPic();
+        }
+
+        private void SavePic_Click(object sender, RoutedEventArgs e)
+        {
+            qssView.SavePic();
         }
     }
 }

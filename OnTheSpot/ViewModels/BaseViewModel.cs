@@ -121,6 +121,20 @@ namespace OnTheSpot.ViewModels
                 }
             }
         }
+        bool barcodeEntered;
+
+        public bool BarcodeEntered
+        {
+            get { return barcodeEntered; }
+            set
+            {
+                if (barcodeEntered != value)
+                {
+                    barcodeEntered = value;
+                    NotifyPropertyChanged("BarcodeEntered");
+                }
+            }
+        }
         public Category cat = null;
         public bool bReceivedAlready = false;
         public ObservableCollection<string> scancodes { get; set; }
@@ -143,8 +157,9 @@ namespace OnTheSpot.ViewModels
             stores.Add("store4");
             scancodes = new ObservableCollection<string>();
             errorcodes = new ObservableCollection<string>();
+            BarcodeEntered = false;
 
-    }
+        }
         public bool bShowWorkorder = false;
 
         public void OpenDB(string connectionString)
@@ -227,12 +242,12 @@ namespace OnTheSpot.ViewModels
         }
        
 
-        public void SaveItem(Item item)
+        public void SaveItem(Item item,bool savingPicture=false)
         {
             //Item item1 = Items.Where(i => i.BarCode == item.BarCode).SingleOrDefault();
             //if (item1 == null)
             //    Items.Add(item);
-            db.SaveItem(item);
+            db.SaveItem(item, savingPicture);
         }
 
         //public void GetCustomer(int orderID)

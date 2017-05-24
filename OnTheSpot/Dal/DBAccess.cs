@@ -172,7 +172,7 @@ namespace OnTheSpot.Dal
              }
              return modelItems;
          }
-         public void SaveItem(OnTheSpot.Models.Item item)
+         public void SaveItem(OnTheSpot.Models.Item item, bool savingPicture = false)
          {
              
              logger.Info(string.Format("SaveItem {0}", item.ID));         
@@ -188,9 +188,14 @@ namespace OnTheSpot.Dal
              else
              {
                  logger.Info(string.Format("Modify {0}", item.Category.ID));
-                 if (dbItem.CatID == item.Category.ID)
-                     return;
-                 dbItem.CatID = item.Category.ID;
+                if (!savingPicture)
+                {
+                    if (dbItem.CatID == item.Category.ID)
+                        return;
+                    dbItem.CatID = item.Category.ID;
+                }
+                else
+                    dbItem.picture = item.picture;
              }
              db.SaveChanges();
          }

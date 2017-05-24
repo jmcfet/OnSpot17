@@ -327,7 +327,7 @@ namespace OnTheSpot.Views
             }
             ErrorTxt.Visibility = Visibility.Hidden;
             Codes.Visibility = Visibility.Collapsed;
-            ErrorCodes.Visibility = Visibility.Collapsed;
+            ErrorCodes.Visibility = Visibility.Collapsed;  //test
                
             CustomerName.Text = " ";
             vm.scancodes.Clear();
@@ -582,8 +582,7 @@ namespace OnTheSpot.Views
         }
         public void SetFocusBarcode()
         {
-  //          Window myCurrentWindow = Window.GetWindow(this);
-  //          myCurrentWindow.Activate();
+            
             Keyboard.Focus(Barcode);
 
         }

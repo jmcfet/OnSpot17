@@ -17,6 +17,8 @@ namespace OnTheSpot.ViewModels
         public string reason { get; set; }
         public string Employeename { get; set; }
         public string Note { get; set; }
+        public bool LoggedInState { get; set; }
+        
         List<string> connectionNames = new List<string>() { "Store1Entities", "Store2Entities", "Store3Entities", "Store4Entities" };
         //retrieve the connection string frpm app.config
         ConnectionStringSettingsCollection connections = ConfigurationManager.ConnectionStrings;
@@ -24,6 +26,8 @@ namespace OnTheSpot.ViewModels
         {
 
             bSimulatePhigetsMode = true;
+            LoggedInState = false;
+            
         }
         public Employee GetEmployee(int id)
         {
