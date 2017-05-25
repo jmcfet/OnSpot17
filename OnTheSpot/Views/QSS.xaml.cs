@@ -20,6 +20,7 @@ using OnTheSpot.Models;
 using System.Windows.Media.Animation;
 using System.IO;
 using Microsoft.Win32;
+using System.Threading;
 
 namespace OnTheSpot.Views
 {
@@ -206,7 +207,7 @@ namespace OnTheSpot.Views
         {
            
             double itemCode = 0;
-            Barcode.Text = testCodes[dumcode++];     //danger
+    //        Barcode.Text = testCodes[dumcode++];     //danger
             logger.Info("Read bar code " + Barcode.Text);
             if (Barcode.Text == string.Empty)
                 return false;
@@ -247,7 +248,7 @@ namespace OnTheSpot.Views
         if (e.Key != System.Windows.Input.Key.Enter) return;
 
             int empid;
-            Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
+            
             employeeID = EmployeeID.Text;
             if (!Int32.TryParse(employeeID, out empid))
             {
@@ -263,7 +264,7 @@ namespace OnTheSpot.Views
                 ErrorTxt.Visibility = Visibility.Visible;
                 return;
             }
-            Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
+            
             UI.Visibility = Visibility.Visible;
             //DoubleAnimation da = new DoubleAnimation(0, 1, TimeSpan.FromSeconds(2));
             //da.AutoReverse = false;
@@ -327,14 +328,19 @@ namespace OnTheSpot.Views
                 img.Source = bitmap;
             }
             picture.Visibility = Visibility.Visible;
+            vm.bGotNewImage = true;
 
         }
         public void SavePic()
         {
+            Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
             byte[] imageBytes = File.ReadAllBytes(imgName);
             item.picture = Convert.ToBase64String(imageBytes);
-            Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
-            vm.SaveItem(item, true);
+           
+            Saving.Visibility = Visibility.Visible;
+            Thread thread = new Thread(DoSave);
+
+            thread.Start();
             Mouse.OverrideCursor = null;
 
         }
@@ -419,6 +425,23 @@ namespace OnTheSpot.Views
 
         }
 
-       
+        private void DoSave()
+        {
+
+            
+            vm.SaveItem(item, true);
+            this.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                Saving.Content = "Saved";
+                Thread.Sleep(TimeSpan.FromSeconds(1));
+
+                Saving.Visibility = Visibility.Collapsed;
+
+            }));
+
+
+        }
+
+
     }
 }

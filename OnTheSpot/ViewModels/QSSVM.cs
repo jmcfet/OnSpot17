@@ -18,7 +18,19 @@ namespace OnTheSpot.ViewModels
         public string Employeename { get; set; }
         public string Note { get; set; }
         public bool LoggedInState { get; set; }
-        
+        bool bgotNewImage;
+        public bool bGotNewImage
+        {
+            get { return bgotNewImage; }
+            set
+            {
+                if (bgotNewImage != value)
+                {
+                    bgotNewImage = value;
+                    NotifyPropertyChanged("bGotNewImage");
+                }
+            }
+        }
         List<string> connectionNames = new List<string>() { "Store1Entities", "Store2Entities", "Store3Entities", "Store4Entities" };
         //retrieve the connection string frpm app.config
         ConnectionStringSettingsCollection connections = ConfigurationManager.ConnectionStrings;
@@ -27,7 +39,9 @@ namespace OnTheSpot.ViewModels
 
             bSimulatePhigetsMode = true;
             LoggedInState = false;
-            
+            bGotNewImage = false;
+
+
         }
         public Employee GetEmployee(int id)
         {
