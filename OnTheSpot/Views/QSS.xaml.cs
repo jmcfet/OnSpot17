@@ -210,7 +210,7 @@ namespace OnTheSpot.Views
         {
            
             double itemCode = 0;
-  //          Barcode.Text = testCodes[dumcode++];     //danger
+  //          Barcode.Text = testCodes[dumcode++];     //danger    testing
             logger.Info("Read bar code " + Barcode.Text);
             if (Barcode.Text == string.Empty)
                 return false;

@@ -56,7 +56,9 @@ namespace OnTheSpot
             else if (((App)Application.Current).bBCS)
             {
                 this.Title = "On the Spot BCS";
-                passwordBox1.Visibility = Visibility.Visible;
+                passwordBox1.Visibility = Visibility.Visible;1000464135
+                    1000464135
+
                 label4.Visibility = Visibility.Visible;
                 label1.Visibility = Visibility.Visible;
                 passwordEntered.Visibility = Visibility.Visible;
