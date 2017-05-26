@@ -39,7 +39,7 @@ namespace OnTheSpot.Views
                 CustomerName.Text = vm.activeCustomer.FirstName + " " + vm.activeCustomer.LastName;
             Store.Text = vm.store;
             Barcode.Text = vm.barcode;
-            Name.Text = vm.Employeename;
+            Name.Text = "By  " + vm.Employeename;
             reason.Text = vm.reason;
             Note.Text = vm.Note;
         }

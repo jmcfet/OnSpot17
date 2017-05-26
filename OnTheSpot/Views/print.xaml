@@ -17,7 +17,7 @@
     </Window.Resources>
     <Grid   x:Name="UI">
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="70"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
@@ -32,21 +32,21 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"></ColumnDefinition>
-            <ColumnDefinition Width="280"></ColumnDefinition>
+            <ColumnDefinition Width="270"></ColumnDefinition>
             <ColumnDefinition Width="20"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <TextBlock x:Name="Duedate"  Grid.Row="1" Grid.Column="1"  VerticalAlignment="Top" Width="420" Height="50" Style="{StaticResource TextLabel}" FontSize="34" />
         <TextBlock x:Name="CustomerName"  Style="{StaticResource TextLabel}" Grid.Row="2" Grid.Column="1"   VerticalAlignment="Top" Width="400"/>
         <TextBlock x:Name="Store" HorizontalAlignment="Center"  Style="{StaticResource TextLabel}" Grid.Row="3" Grid.Column="1" VerticalAlignment="Top" Width="400"/>
-        <Border BorderThickness="1"  Grid.Row="4" Grid.Column="1" Width="100"  Height="30" BorderBrush="Black">
-            <TextBlock x:Name="Barcode"    TextAlignment="Center" Height="30" Width="82"/>
+        <Border BorderThickness="1"  Grid.Row="4" Grid.Column="1" Width="100"   BorderBrush="Black">
+            <TextBlock x:Name="Barcode"    TextAlignment="Center" VerticalAlignment="Center"  Width="82"/>
         </Border>
         <TextBlock  Grid.Row="4" Grid.Column="1"  Text="Failed QC for" Height="Auto" Width="104" Style="{StaticResource TextLabel}" Margin="47.4,31,47,9.4" Grid.RowSpan="2"/>
         <TextBlock x:Name="reason" Grid.Row="6" Grid.Column="1"  VerticalAlignment="Top" Height="22"  Style="{StaticResource TextLabel}"/>
-        <TextBlock Grid.Row="7" Grid.Column="1" Text="Failed by" VerticalAlignment="Top" Style="{StaticResource TextLabel}"  />
-        <TextBlock x:Name="Name"  Grid.Row="8" Grid.Column="1"  VerticalAlignment="Top" Height="27"  Style="{StaticResource TextLabel}" Text="john hamilthoris"/>
-        <TextBlock x:Name="Note"  Grid.Row="9" Grid.Column="1"  VerticalAlignment="Top" Height="27"  Style="{StaticResource TextLabel}" Text="john hamilthoris"/>
-        <Button x:Name="PrintButton"  Content="print"  Grid.Row="10" Grid.Column="1" VerticalAlignment="Top" Click="Button_Click_1" Height="60" />
+       
+        <TextBlock x:Name="Name"  Grid.Row="7" Grid.Column="1"  VerticalAlignment="Top" Height="27"  Style="{StaticResource TextLabel}" Text="john hamilthoris"/>
+        <TextBox x:Name="Note"  Grid.Row="8" Grid.RowSpan="2" Grid.Column="1"  VerticalAlignment="Top" TextWrapping="Wrap"  Text="john hamilthoris" Margin="0,0,10,0"/>
+        <Button x:Name="PrintButton"  Content="print"  Grid.Row="10"  Grid.Column="1" VerticalAlignment="Top" Click="Button_Click_1" Height="60" />
         <TextBlock x:Name="TargetPrinter"  Grid.Column="1" HorizontalAlignment="Left" Margin="179.4,22.2,0,0" Grid.Row="11" TextWrapping="Wrap"  VerticalAlignment="Top" Width="137" Height="20"/>
     </Grid>
 </Window>
