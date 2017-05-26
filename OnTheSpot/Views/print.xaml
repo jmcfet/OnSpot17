@@ -26,6 +26,7 @@
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>
             <RowDefinition Height="100"></RowDefinition>
             <RowDefinition Height="100"></RowDefinition>
         </Grid.RowDefinitions>
@@ -43,8 +44,9 @@
         <TextBlock  Grid.Row="4" Grid.Column="1"  Text="Failed QC for" Height="Auto" Width="104" Style="{StaticResource TextLabel}" Margin="47.4,31,47,9.4" Grid.RowSpan="2"/>
         <TextBlock x:Name="reason" Grid.Row="6" Grid.Column="1"  VerticalAlignment="Top" Height="22"  Style="{StaticResource TextLabel}"/>
         <TextBlock Grid.Row="7" Grid.Column="1" Text="Failed by" VerticalAlignment="Top" Style="{StaticResource TextLabel}"  />
-        <TextBlock x:Name="Name"  Grid.Row="8" Grid.Column="1"  VerticalAlignment="Top" Height="27"  Style="{StaticResource TextLabel}" Text="john hamilthorisvvv"/>
-        <Button x:Name="PrintButton"  Content="print"  Grid.Row="9" Grid.Column="1" VerticalAlignment="Top" Click="Button_Click_1" Height="60" />
-        <TextBlock x:Name="TargetPrinter"  Grid.Column="1" HorizontalAlignment="Left" Margin="179.4,22.2,0,0" Grid.Row="10" TextWrapping="Wrap"  VerticalAlignment="Top" Width="137" Height="20"/>
+        <TextBlock x:Name="Name"  Grid.Row="8" Grid.Column="1"  VerticalAlignment="Top" Height="27"  Style="{StaticResource TextLabel}" Text="john hamilthoris"/>
+        <TextBlock x:Name="Note"  Grid.Row="9" Grid.Column="1"  VerticalAlignment="Top" Height="27"  Style="{StaticResource TextLabel}" Text="john hamilthoris"/>
+        <Button x:Name="PrintButton"  Content="print"  Grid.Row="10" Grid.Column="1" VerticalAlignment="Top" Click="Button_Click_1" Height="60" />
+        <TextBlock x:Name="TargetPrinter"  Grid.Column="1" HorizontalAlignment="Left" Margin="179.4,22.2,0,0" Grid.Row="11" TextWrapping="Wrap"  VerticalAlignment="Top" Width="137" Height="20"/>
     </Grid>
 </Window>

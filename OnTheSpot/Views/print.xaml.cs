@@ -41,6 +41,7 @@ namespace OnTheSpot.Views
             Barcode.Text = vm.barcode;
             Name.Text = vm.Employeename;
             reason.Text = vm.reason;
+            Note.Text = vm.Note;
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)

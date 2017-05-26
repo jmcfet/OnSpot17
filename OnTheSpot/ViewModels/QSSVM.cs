@@ -31,6 +31,19 @@ namespace OnTheSpot.ViewModels
                 }
             }
         }
+        bool showButtons;
+        public bool ShowButtons
+        {
+            get { return showButtons; }
+            set
+            {
+                if (showButtons != value)
+                {
+                    showButtons = value;
+                    NotifyPropertyChanged("ShowButtons");
+                }
+            }
+        }
         List<string> connectionNames = new List<string>() { "Store1Entities", "Store2Entities", "Store3Entities", "Store4Entities" };
         //retrieve the connection string frpm app.config
         ConnectionStringSettingsCollection connections = ConfigurationManager.ConnectionStrings;

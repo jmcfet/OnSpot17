@@ -32,7 +32,7 @@ namespace OnTheSpot.Views
         //I used the vm as a global class so must check the casting as only one VM is active
         QSSVM vm = null;
         string employeeID ;
-        List<string> testCodes = new List<string>() { "1000446921", "1000446923", "1000446919", "1000446918", "1000446917", "1000446916", "1000446915", "1000446914" };
+        List<string> testCodes = new List<string>() {  "1000446921", "1000446921", "1000446918", "1000446917", "1000446916", "1000446915", "1000446914" };
         int dumcode =1;
         List<string> buttonLabels = new List<string>() { "Spots", "Repairs/Buttons", "Repressing" };
         int BarcodeChars = 0;
@@ -140,10 +140,13 @@ namespace OnTheSpot.Views
                     Mouse.OverrideCursor = null;
                     return;
                 }
-                vm.BarcodeEntered = true;
+                if (vm.bLoggedIn)
+                    vm.BarcodeEntered = true;
+                vm.ShowButtons = true;
                 NoteBox.Visibility = System.Windows.Visibility.Collapsed;
                 if (item.Note != null && item.Note != string.Empty)
                 {
+                    vm.Note = item.Note;
                     NoteText.Text = item.Note;
                     NoteBox.Visibility = Visibility.Visible;
                 }
@@ -191,7 +194,7 @@ namespace OnTheSpot.Views
             Mouse.OverrideCursor = null;
             logger.Info(string.Format("all data obtained for {0} ", Barcode.Text));
             //if there is a picture then display it
-            if (item.picture == null || !vm.bLoggedIn  )
+            if (item.picture == null  )
                 return;
             picture.Visibility = Visibility.Visible;
             byte [] binaryData = Convert.FromBase64String(item.picture);
@@ -207,7 +210,7 @@ namespace OnTheSpot.Views
         {
            
             double itemCode = 0;
-    //        Barcode.Text = testCodes[dumcode++];     //danger
+  //          Barcode.Text = testCodes[dumcode++];     //danger
             logger.Info("Read bar code " + Barcode.Text);
             if (Barcode.Text == string.Empty)
                 return false;
@@ -366,6 +369,8 @@ namespace OnTheSpot.Views
         {
             GetNote popup = new GetNote();
             popup.ShowDialog();
+            if (vm.Note == null)
+                return;
             vm.AddNote(Barcode.Text, vm.Note);
             NoteText.Text = vm.Note;
             NoteBox.Visibility = Visibility.Visible;

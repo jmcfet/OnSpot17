@@ -64,7 +64,7 @@
                         Name="Barcode"  Height="40" FontSize="20"
                         VerticalAlignment="Top" TextDecorations="None" Grid.ColumnSpan="2" Margin="0,0,-0.8,-18" />
             </Grid>
-            <Grid x:Name="buttonsContainer" HorizontalAlignment="Left" Height="215" Margin="59,214,0,0" VerticalAlignment="Top" Width="735" Visibility="{Binding BarcodeEntered, Converter={StaticResource BooleanToVisibilityConverter}}" >
+            <Grid x:Name="buttonsContainer" HorizontalAlignment="Left" Height="215" Margin="59,214,0,0" VerticalAlignment="Top" Width="735" Visibility="{Binding ShowButtons, Converter={StaticResource BooleanToVisibilityConverter}}" >
                 <Button Content="Button" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="133" Height="46" Visibility="Collapsed" Click="Button_Click_1"/>
                 <Button Content="Button" HorizontalAlignment="Left" Margin="176,10,0,0" VerticalAlignment="Top" Width="133" Height="46" Visibility="Collapsed" Click="Button_Click_1"/>
                 <Button Content="Button" HorizontalAlignment="Left" Margin="337,10,0,0" VerticalAlignment="Top" Width="133" Height="46" Visibility="Collapsed" Click="Button_Click_1"/>
