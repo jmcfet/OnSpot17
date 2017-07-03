@@ -144,6 +144,7 @@ namespace OnTheSpot.Views
                     vm.BarcodeEntered = true;
                 vm.ShowButtons = true;
                 NoteBox.Visibility = System.Windows.Visibility.Collapsed;
+                vm.Note = string.Empty;
                 if (item.Note != null && item.Note != string.Empty)
                 {
                     vm.Note = item.Note;
@@ -197,6 +198,12 @@ namespace OnTheSpot.Views
             if (item.picture == null  )
                 return;
             picture.Visibility = Visibility.Visible;
+            if (employeeID == "1")
+            {
+                Note.Visibility = Visibility.Visible;
+               
+            }
+            
             byte [] binaryData = Convert.FromBase64String(item.picture);
             bitmap = new BitmapImage();
             bitmap.BeginInit();
@@ -210,7 +217,7 @@ namespace OnTheSpot.Views
         {
            
             double itemCode = 0;
-   //         Barcode.Text = testCodes[dumcode++];     //danger   yyyyyyy
+     //       Barcode.Text = testCodes[dumcode++];     //danger   yyyyyyy
             logger.Info("Read bar code " + Barcode.Text);
             if (Barcode.Text == string.Empty)
                 return false;
@@ -277,11 +284,7 @@ namespace OnTheSpot.Views
             msg.Text = vm.Employeename + " logged in";
             Loggedin.Visibility = Visibility.Visible;
             Note.Visibility = Visibility.Hidden;
-            if (employeeID == "1")
-            {
-                Note.Visibility = Visibility.Visible;
-                ShowPass.Visibility = Visibility.Visible;
-            }
+            
             Barcode.Focus();
           
 
@@ -362,6 +365,7 @@ namespace OnTheSpot.Views
             ErrorTxt.Visibility = Visibility.Collapsed;
             NoteBox.Visibility = Visibility.Collapsed;
             picture.Visibility = Visibility.Collapsed;
+            Note.Visibility = Visibility.Collapsed;
 
         }
 
