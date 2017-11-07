@@ -114,7 +114,7 @@ namespace OnTheSpot.ViewModels
         public void SaveItem(object item)
         {
 
-            db.SaveItem(item as OnTheSpot.Models.Item);
+            db.SaveItem(item as Item);
         }
         public void SaveItemGSS(object item)
         {

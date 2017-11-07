@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Collections.ObjectModel;
-using OnTheSpot.EFStuff;
+
 using System.Diagnostics;
 using NLog;
+using ClassLibrary1.Dal;
 
-namespace OnTheSpot.Dal
+namespace ClassLibrary1
 {
     public class DBAccess
     {
-        Entities db = new Entities();
+        BCSEntities1 db = new BCSEntities1();
         Logger logger = LogManager.GetLogger("OnTheSpot");
         Store1Entities dbOTS;
 
@@ -136,15 +137,15 @@ namespace OnTheSpot.Dal
              List<Printer> dbprinters = db.Printers.ToList();
              List<Printer> modelItems = new List<Printer>();
              List<Printer> printerModels = new List<Printer>();
-             foreach (Printer item in dbprinters)
-             {
-                 Printer model = new Printer()
-                 {
-                     PrinterName = item.printerName,
-                     Store = item.storename
-                 };
-                 printerAdd(model);
-             }
+             //foreach (Printer item in dbprinters)
+             //{
+             //    Printer model = new Printer()
+             //    {
+             //        PrinterName = item.printerName,
+             //        Store = item.storename
+             //    };
+             //    printerAdd(model);
+             //}
              return printerModels;            
          }
          public ObservableCollection<Bin> GetBins()
@@ -159,15 +160,15 @@ namespace OnTheSpot.Dal
                      BarCode = item.BarCode,
  //                    Category = item.Category,
                      MaxWeight = item.MaxWeight,
-                     PhidgetSlot = item.PhigidSlot
+                     PhigidSlot = item.PhigidSlot
 
                  };
-                 model.Category = new Category()
-                 {
-                     ID = item.Category1.ID,
-                     Description = item.Category1.Description,
-                     Name = item.Category1.Name
-                 };
+                 //model.Category = new Category()
+                 //{
+                 //    ID = item.Category1.ID,
+                 //    Description = item.Category1.Description,
+                 //    Name = item.Category1.Name
+                 //};
                  modelItems.Add(model);
              }
              return modelItems;
@@ -181,9 +182,9 @@ namespace OnTheSpot.Dal
              {
                 
                  logger.Info(string.Format("Create new"));  
-                 dbItem = new Item() { BarCode = item.BarCode, CustID = item.CustID, CreateDate = item.CreationDate };
+                 dbItem = new Item() { BarCode = item.BarCode, CustID = item.CustID, CreateDate = item.CreateDate };
                  dbItem.CatID = item.Category.ID;
-                 db.Items.AddObject(dbItem);
+                 db.Items.Add(dbItem);
              }
              else
              {
@@ -202,24 +203,24 @@ namespace OnTheSpot.Dal
          public void SaveGssItem(GSS gss)
          {
 
-             logger.Info(string.Format("SaveItem {0}", gss.ID));
-             OnTheSpot.EFStuff.GSS dbItem = new OnTheSpot.EFStuff.GSS() { barcode = gss.BarCode, bin = gss.bin, time = gss.CreationDate,temp3 = "temp"};
-             db.GSSes.AddObject(dbItem);
-             db.SaveChanges();
+             //logger.Info(string.Format("SaveItem {0}", gss.ID));
+             //OnTheSpot.EFStuff.GSS dbItem = new OnTheSpot.EFStuff.GSS() { barcode = gss.BarCode, bin = gss.bin, time = gss.CreationDate,temp3 = "temp"};
+             //db.GSSes.AddObject(dbItem);
+             //db.SaveChanges();
          }
          public string SaveQCS(string heatseal,string location)
          { 
 
-             OnTheSpot.EFStuff.QCSInfo dbItem = new OnTheSpot.EFStuff.QCSInfo() {  HeatSeal=heatseal, Bin=location, Time = DateTime.Now };
-             db.QCSInfoes.AddObject(dbItem);
-             try
-             {
-                 db.SaveChanges();
-             }
-             catch (Exception e)
-             {
-                return e.InnerException.Message;
-             }
+             //OnTheSpot.EFStuff.QCSInfo dbItem = new OnTheSpot.EFStuff.QCSInfo() {  HeatSeal=heatseal, Bin=location, Time = DateTime.Now };
+             //db.QCSInfoes.AddObject(dbItem);
+             //try
+             //{
+             //    db.SaveChanges();
+             //}
+             //catch (Exception e)
+             //{
+             //   return e.InnerException.Message;
+             //}
              return string.Empty;
          }
          public void saveNote(string heatseal, string note)
@@ -269,13 +270,13 @@ namespace OnTheSpot.Dal
                 {
                     binDB = new Bin();
 //                    binDB.Category1 = new Category();
-                    db.Bins.AddObject(binDB);
+                    db.Bins.Add(binDB);
 
                 }
                 binDB.MaxWeight = bin.MaxWeight;
                 binDB.BarCode = bin.BarCode;
-                binDB.Category1 = db.Categories.Where(c => c.ID == bin.Category.ID).SingleOrDefault();
-                binDB.PhigidSlot = bin.PhidgetSlot;
+        //later        binDB.Category1 = db.Categories.Where(c => c.ID == bin.Category.).SingleOrDefault();
+                binDB.PhigidSlot = bin.PhigidSlot;
             }
                 
             db.SaveChanges();
