@@ -29,7 +29,7 @@ namespace OnTheSpot.ViewModels
         private bool _bTurnOnRegister = true;
         private bool _bLoggedIn = false;
 // this is used for developing when there is no hardware and to allow batch mode in BCS to work
-        public bool bSimulatePhigetsMode = false;     
+        public bool bSimulatePhigetsMode = true;     
         Logger logger = LogManager.GetLogger("OnTheSpot");
         public bool bTurnOnRegister
         {

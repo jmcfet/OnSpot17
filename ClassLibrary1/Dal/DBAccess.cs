@@ -3,27 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Collections.ObjectModel;
-using OnTheSpot.EFStuff;
+
 using System.Diagnostics;
 using NLog;
+using ClassLibrary1.Dal;
 
-
-namespace OnTheSpot.Dal
+namespace ClassLibrary1
 {
     public class DBAccess
     {
-        BCSEntities db = new BCSEntities();
+        BCSEntities1 db = new BCSEntities1();
         Logger logger = LogManager.GetLogger("OnTheSpot");
-        Store1Entities2 dbOTS;
+        Store1Entities dbOTS;
 
         public DBAccess(string connectionstring)
         {
-            dbOTS = new Store1Entities2();
+            dbOTS = new Store1Entities(connectionstring);
         }
 
         public  Employee GetEmployee(int empid)
         {
-            OnTheSpot.EFStuff.Employees emp = null;
+            Employee emp = null;
             string error = string.Empty;
             try
             {
@@ -137,15 +137,15 @@ namespace OnTheSpot.Dal
              List<Printer> dbprinters = db.Printers.ToList();
              List<Printer> modelItems = new List<Printer>();
              List<Printer> printerModels = new List<Printer>();
-             foreach (Printer item in dbprinters)
-             {
-                 Printer model = new Printer()
-                 {
-                     PrinterName = item.printerName,
-                     Store = item.storename
-                 };
-                 printerAdd(model);
-             }
+             //foreach (Printer item in dbprinters)
+             //{
+             //    Printer model = new Printer()
+             //    {
+             //        PrinterName = item.printerName,
+             //        Store = item.storename
+             //    };
+             //    printerAdd(model);
+             //}
              return printerModels;            
          }
          public ObservableCollection<Bin> GetBins()
@@ -160,15 +160,15 @@ namespace OnTheSpot.Dal
                      BarCode = item.BarCode,
  //                    Category = item.Category,
                      MaxWeight = item.MaxWeight,
-                     PhidgetSlot = item.PhigidSlot
+                     PhigidSlot = item.PhigidSlot
 
                  };
-                 model.Category = new Category()
-                 {
-                     ID = item.Category1.ID,
-                     Description = item.Category1.Description,
-                     Name = item.Category1.Name
-                 };
+                 //model.Category = new Category()
+                 //{
+                 //    ID = item.Category1.ID,
+                 //    Description = item.Category1.Description,
+                 //    Name = item.Category1.Name
+                 //};
                  modelItems.Add(model);
              }
              return modelItems;
@@ -182,7 +182,7 @@ namespace OnTheSpot.Dal
              {
                 
                  logger.Info(string.Format("Create new"));  
-                 dbItem = new Item() { BarCode = item.BarCode, CustID = item.CustID, CreateDate = item.CreationDate };
+                 dbItem = new Item() { BarCode = item.BarCode, CustID = item.CustID, CreateDate = item.CreateDate };
                  dbItem.CatID = item.Category.ID;
                  db.Items.Add(dbItem);
              }
@@ -203,24 +203,24 @@ namespace OnTheSpot.Dal
          public void SaveGssItem(GSS gss)
          {
 
-             logger.Info(string.Format("SaveItem {0}", gss.ID));
-             OnTheSpot.EFStuff.GSS dbItem = new OnTheSpot.EFStuff.GSS() { barcode = gss.BarCode, bin = gss.bin, time = gss.CreationDate,temp3 = "temp"};
-             db.GSSes.Add(dbItem);
-             db.SaveChanges();
+             //logger.Info(string.Format("SaveItem {0}", gss.ID));
+             //OnTheSpot.EFStuff.GSS dbItem = new OnTheSpot.EFStuff.GSS() { barcode = gss.BarCode, bin = gss.bin, time = gss.CreationDate,temp3 = "temp"};
+             //db.GSSes.AddObject(dbItem);
+             //db.SaveChanges();
          }
          public string SaveQCS(string heatseal,string location)
          { 
 
-             OnTheSpot.EFStuff.QCSInfo dbItem = new OnTheSpot.EFStuff.QCSInfo() {  HeatSeal=heatseal, Bin=location, Time = DateTime.Now };
-             db.QCSInfoes.Add(dbItem);
-             try
-             {
-                 db.SaveChanges();
-             }
-             catch (Exception e)
-             {
-                return e.InnerException.Message;
-             }
+             //OnTheSpot.EFStuff.QCSInfo dbItem = new OnTheSpot.EFStuff.QCSInfo() {  HeatSeal=heatseal, Bin=location, Time = DateTime.Now };
+             //db.QCSInfoes.AddObject(dbItem);
+             //try
+             //{
+             //    db.SaveChanges();
+             //}
+             //catch (Exception e)
+             //{
+             //   return e.InnerException.Message;
+             //}
              return string.Empty;
          }
          public void saveNote(string heatseal, string note)
@@ -275,7 +275,8 @@ namespace OnTheSpot.Dal
                 }
                 binDB.MaxWeight = bin.MaxWeight;
                 binDB.BarCode = bin.BarCode;
-                binDB.PhigidSlot = bin.PhidgetSlot;
+        //later        binDB.Category1 = db.Categories.Where(c => c.ID == bin.Category.).SingleOrDefault();
+                binDB.PhigidSlot = bin.PhigidSlot;
             }
                 
             db.SaveChanges();
@@ -295,35 +296,8 @@ namespace OnTheSpot.Dal
             return  db.Configurations.First().ShowPass;
            
         }
-        public OnTheSpot.Models.InterogatorInfo getInfoForInterogator(OnTheSpot.Models.AutoSortInfo  customerstuff)
-        {
-            double heatseal = double.Parse(customerstuff.HeatSeal);
-            OnTheSpot.Models.InterogatorInfo info = (from cust in dbOTS.Customers
-                                                     where cust.CustomerID == customerstuff.CustomerID
-                                                     from heat in dbOTS.Heatseals
-                                                     where heat.HeatsealID == heatseal
-                                                     select new OnTheSpot.Models.InterogatorInfo() {  HomePhone = cust.HomePhone, Email= cust.EMail, InvoiceReminder = cust.InvReminder,
-                     LastOrder = cust.LastOrder, Notes= cust.Notes, OpenDate = cust.OpenDate, HeatSealMessage = heat.Message }).SingleOrDefault();
 
-            List<OnTheSpot.EFStuff.Contacts> contacts = (from contact in dbOTS.Contacts
-                                                      where contact.CustomerID == customerstuff.CustomerID
-                                                         select contact).ToList();
-            info.CustomerID = customerstuff.CustomerID.ToString();
-            info.OpenDateString = info.OpenDate.Value.ToShortDateString();
-            info.LastOrderString = info.LastOrder.Value.ToShortDateString();
-            info.issues = new List<string>();
-            info.resolutions = new List<string>();
-            foreach(OnTheSpot.EFStuff.Contacts contact  in contacts)
-            {
-                info.issues.Add(contact.Issue);
-                info.resolutions.Add(contact.Resolution);
-            }
-            info.currentIssue = info.issues[0];
-            info.currentResolution = info.resolutions[0];
-            return info;
-        }
-
-
+   
     }
 
 
