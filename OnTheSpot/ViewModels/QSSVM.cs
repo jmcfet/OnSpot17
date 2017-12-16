@@ -18,6 +18,7 @@ namespace OnTheSpot.ViewModels
         public string Employeename { get; set; }
         public string Note { get; set; }
         public bool LoggedInState { get; set; }
+        public AutoSortInfo assemblyInfo;
         bool bgotNewImage;
         public bool bGotNewImage
         {
@@ -81,5 +82,18 @@ namespace OnTheSpot.ViewModels
         {
             return "Item not found, call manager immediately! {0}";
         }
+
+        public OnTheSpot.Models.InterogatorInfo getInfoForInterogator()
+        {
+
+            DBAccess db = new DBAccess(connections[connectionNames[0]].ConnectionString);
+            
+            assemblyInfo.HeatSeal = barcode;
+          //  assemblyInfo.CustomerID = 100006;
+            return db.getInfoForInterogator(assemblyInfo);
+         
+            
+        }
+
     }
 }

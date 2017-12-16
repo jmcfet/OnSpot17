@@ -34,8 +34,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="NLog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -48,7 +51,6 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Printing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -71,20 +73,329 @@
     </ApplicationDefinition>
     <Compile Include="Dal\AssemblyAccess.cs" />
     <Compile Include="Dal\DBAccess.cs" />
+    <Compile Include="EFStuff\Alert.cs">
+      <DependentUpon>Assembly.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\AppliedCrs.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\Appointment.cs">
+      <DependentUpon>BCS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\AssemAutoNumber.cs">
+      <DependentUpon>Assembly.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\Assembly.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Assembly.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\Assembly.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Assembly.tt</DependentUpon>
+    </Compile>
     <Compile Include="EFStuff\Assembly.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Assembly.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\AssemblyBay.cs">
+      <DependentUpon>Assembly.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\AssemblySetting.cs">
+      <DependentUpon>Assembly.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\AutoNumber.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\AutoSort.cs">
+      <DependentUpon>Assembly.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\BCS.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BCS.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\BCS.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BCS.tt</DependentUpon>
     </Compile>
     <Compile Include="EFStuff\BCS.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BCS.edmx</DependentUpon>
     </Compile>
+    <Compile Include="EFStuff\BillCyclePeriods.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\BillingCenters.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\BillingCycles.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\Bin.cs">
+      <DependentUpon>BCS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\Campaigns.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\CardBillAutoCredits.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\CardBilling.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\Category.cs">
+      <DependentUpon>BCS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\CCAudits.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\CCKeys.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\CCPaymentContracts.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\CCSettings.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\CCStationSettings.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\ClerkDrawers.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\ClockInAccounts.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\Configuration.cs">
+      <DependentUpon>BCS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\Contacts.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\CPR.cs">
+      <DependentUpon>BCS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\Credits.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\Customers.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\DeletedCusts.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\DeliveryCenters.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\DeliveryGroups.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\DeliveryLog.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\dtproperties.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\EditedCusts.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\EmailLogs.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\EmployeeDefaults.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\Employees.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\GiftCardTypes.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\GiftTransactions.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\GLAccounts.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\GLJournal.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\GSS.cs">
+      <DependentUpon>BCS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\Heatseals.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\ImageLibrary.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\Inventories.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\Invoice.cs">
+      <DependentUpon>Assembly.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\InvoiceAdjusts.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\InvoiceDetail.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\Invoices.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\InvoicesAssembled.cs">
+      <DependentUpon>Assembly.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\InvoicesTest.cs">
+      <DependentUpon>Assembly.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\InvPaids.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\Item.cs">
+      <DependentUpon>BCS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\KioskSettings.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\Location.cs">
+      <DependentUpon>Assembly.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\Lots.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\MerchantQTY.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\MergedCusts.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\NoSales.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\OrderDetail.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\OrderProcess.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\Orders.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\Originals.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\OTISIdsToFabId.cs">
+      <DependentUpon>BCS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\OTS.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OTS.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\OTS.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
     <Compile Include="EFStuff\OTS.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>OTS.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\OTSIDtoFAB.cs">
+      <DependentUpon>BCS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\OverdueStats.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\PasswordHistory.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\Payments.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\Physical.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\PostalCodes.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\Preferences.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\Printer.cs">
+      <DependentUpon>BCS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\PurgedCusts.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\QCSInfo.cs">
+      <DependentUpon>BCS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\Reasons.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\Receipts.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\RecurringGroups.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\Recurrings.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\RouteItems.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\RouteStops.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\SalesTax.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\ScanLogs.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\SOFBatches.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\StatementBalances.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\StatementHistory.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\Stock.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\StorageInvoice.cs">
+      <DependentUpon>Assembly.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\Stores.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\TaxAuthorities.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\TimeCards.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\Version.cs">
+      <DependentUpon>Assembly.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\Versions.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EFStuff\WirelessCarriers.cs">
+      <DependentUpon>OTS.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AutosortInfo.cs" />
     <Compile Include="Models\BaseModel.cs" />
@@ -93,6 +404,7 @@
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\GSS.cs" />
+    <Compile Include="Models\InterogatorInfo.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\printers.cs" />
     <Compile Include="Models\QCS.cs" />
@@ -101,6 +413,9 @@
     <Compile Include="ViewModels\BCSVM.cs" />
     <Compile Include="ViewModels\GSSVM.cs" />
     <Compile Include="ViewModels\QSSVM.cs" />
+    <Compile Include="Views\Interogator.xaml.cs">
+      <DependentUpon>Interogator.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ItemImage.xaml.cs">
       <DependentUpon>ItemImage.xaml</DependentUpon>
     </Compile>
@@ -128,6 +443,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\Interogator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ItemImage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -167,19 +486,28 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="EFStuff\Assembly.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Assembly.Designer.cs</LastGenOutput>
-    </EntityDeploy>
+    <None Include="Apptest.config" />
     <EntityDeploy Include="EFStuff\BCS.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>BCS.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <EntityDeploy Include="EFStuff\Assembly.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Assembly.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="EFStuff\Assembly.edmx.diagram">
+      <DependentUpon>Assembly.edmx</DependentUpon>
+    </None>
+    <None Include="EFStuff\BCS.edmx.diagram">
+      <DependentUpon>BCS.edmx</DependentUpon>
+    </None>
     <EntityDeploy Include="EFStuff\OTS.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>OTS.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Apptest.config" />
+    <None Include="EFStuff\OTS.edmx.diagram">
+      <DependentUpon>OTS.edmx</DependentUpon>
+    </None>
     <None Include="NLog.config">
       <SubType>Designer</SubType>
     </None>
@@ -201,7 +529,43 @@
       <Name>Led</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="EFStuff\Assembly.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Assembly.edmx</DependentUpon>
+      <LastGenOutput>Assembly.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="EFStuff\Assembly.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Assembly.edmx</DependentUpon>
+      <LastGenOutput>Assembly.cs</LastGenOutput>
+    </Content>
+    <Content Include="EFStuff\BCS.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BCS.edmx</DependentUpon>
+      <LastGenOutput>BCS.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="EFStuff\BCS.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BCS.edmx</DependentUpon>
+      <LastGenOutput>BCS.cs</LastGenOutput>
+    </Content>
+    <Content Include="EFStuff\OTS.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>OTS.edmx</DependentUpon>
+      <LastGenOutput>OTS.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="EFStuff\OTS.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>OTS.edmx</DependentUpon>
+      <LastGenOutput>OTS.cs</LastGenOutput>
+    </Content>
+    <Resource Include="if_icon-ios7-arrow-back_211686.png" />
+    <Resource Include="if_icon-ios7-arrow-right_211607.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

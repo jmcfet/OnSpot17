@@ -28,7 +28,7 @@ namespace OnTheSpot
         //      public BaseViewModel vm = new GSSVM();
 
 
-      //       public BaseViewModel vm = new BCSandGSSVM(true);
+       //     public BaseViewModel vm = new BCSandGSSVM(true);
         
             public App()
             {

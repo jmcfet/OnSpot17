@@ -32,7 +32,7 @@ namespace OnTheSpot.Views
         //I used the vm as a global class so must check the casting as only one VM is active
         QSSVM vm = null;
         string employeeID ;
-        List<string> testCodes = new List<string>() {  "1000446921", "1000446921", "1000446918", "1000446917", "1000446916", "1000446915", "1000446914" };
+        List<string> testCodes = new List<string>() { "1000508922", "1000508922", "1000446918", "1000446917", "1000446916", "1000446915", "1000446914" };
         int dumcode =1;
         List<string> buttonLabels = new List<string>() { "Spots", "Repairs/Buttons", "Repressing" };
         int BarcodeChars = 0;
@@ -58,6 +58,8 @@ namespace OnTheSpot.Views
             int i = 0;
             if (!vm.bLoggedIn)
                 Note.Visibility = Visibility.Hidden;
+            else
+                Note.Visibility = Visibility.Visible;
             if (vm.GetShowPass() == 1)
             {
                 ShowPass.Content = "Hide pass";
@@ -117,13 +119,13 @@ namespace OnTheSpot.Views
                 return;
             Mouse.OverrideCursor = Cursors.Wait;
             vm.barcode = Barcode.Text;
-            AutoSortInfo assemblyInfo = null;
+            vm.assemblyInfo = null;
             //check that the item is in the Assembly database if not then show message and allow more items
             //to be scanned
             try
             {
-                assemblyInfo = vm.getItemInAssemblyDB(Barcode.Text);
-                if (assemblyInfo == null)
+                vm.assemblyInfo = vm.getItemInAssemblyDB(Barcode.Text);
+                if (vm.assemblyInfo == null)
                 {
                     BarcodeChars = 0;
                     Errormsg.Text = string.Format(string.Format("Item has not been marked in {0}", Barcode.Text));
@@ -131,7 +133,7 @@ namespace OnTheSpot.Views
                     Mouse.OverrideCursor = null;
                     return;
                 }
-                vm.GetCustomer(assemblyInfo.CustomerID);
+                vm.GetCustomer(vm.assemblyInfo.CustomerID);
                 item = vm.GetItemInDB(Barcode.Text);
                 if (item == null)
                 {
@@ -151,7 +153,7 @@ namespace OnTheSpot.Views
                     NoteText.Text = item.Note;
                     NoteBox.Visibility = Visibility.Visible;
                 }
-                DateTime date = (DateTime)assemblyInfo.Duedate;
+                DateTime date = (DateTime)vm.assemblyInfo.Duedate;
                 DateTime future = DateTime.Now.AddDays(2);
                 if (date < future)
                 {
@@ -166,11 +168,11 @@ namespace OnTheSpot.Views
                 vm.Duedate = duedate.Text;
                 CustomerName.Text = vm.activeCustomer.FirstName + " " + vm.activeCustomer.LastName;
                 //check if this is in Route
-                int RFIDlen = assemblyInfo.rfid.Length;
+                int RFIDlen = vm.assemblyInfo.rfid.Length;
                 bool route = false;
-                for (int i = 0; i < assemblyInfo.rfid.Length; i++)
+                for (int i = 0; i < vm.assemblyInfo.rfid.Length; i++)
                 {
-                    if (assemblyInfo.rfid[i] != ' ')
+                    if (vm.assemblyInfo.rfid[i] != ' ')
                     {
                         route = true;
                         break;
@@ -180,7 +182,7 @@ namespace OnTheSpot.Views
                 if (route)
                     store.Text = vm.store = "Route";
                 else
-                    store.Text = vm.store = assemblyInfo.storeName;
+                    store.Text = vm.store = vm.assemblyInfo.storeName;
                
              
             }
@@ -320,6 +322,20 @@ namespace OnTheSpot.Views
             Login.Visibility = Visibility.Visible;
             UI.Visibility = Visibility.Collapsed;
             ShowPass.Visibility = Visibility.Collapsed;
+        }
+
+        private void Integator_Click(object sender, RoutedEventArgs e)
+        {
+            if (vm.assemblyInfo == null)
+            {
+                //Errormsg.Text = "Bar code was not entered";
+                //ErrorTxt.Visibility = Visibility.Visible;
+                Barcode.Focus();
+                return;
+            }
+            
+            Interogator popup = new Interogator(vm.getInfoForInterogator());
+            popup.ShowDialog();
         }
 
         public void GetPic()

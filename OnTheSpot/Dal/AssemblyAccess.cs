@@ -2,7 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using OnTheSpot.EFStuff;
+using OnTheSpot.EFStuff;// string StoreConnectionString = connections["Store1Entities"].ConnectionString;
+                        //// AssemblyConnectionString = connections["AssemblyEntities"].ConnectionString;
+
+// OTSAccess dal = new OTSAccess(StoreConnectionString);
+// dal.GetEmployee(1);
+// string error = string.Empty;
+// System.Collections.ObjectModel.ObservableCollection<Category> cats = dal.GetCats(out error);
 using OnTheSpot.Models;
 
 namespace OnTheSpot.Dal
@@ -10,11 +16,11 @@ namespace OnTheSpot.Dal
     
     public class AssemblyAccess
     {
-        AssemblyEntities assemblyEnties;
+        AssemblyEntities1 assemblyEnties;
         
         public AssemblyAccess(string connectionstring)
         {
-            assemblyEnties = new AssemblyEntities(connectionstring);
+            assemblyEnties = new AssemblyEntities1();
         }
 
         public AutoSortInfo GetCustomerInfoFromAssembly(string itemID)

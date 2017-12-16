@@ -232,7 +232,7 @@ namespace OnTheSpot
                     Classify.Visibility = Visibility.Visible;
                 }
 
-               
+
                 if (registerView != null)
                 {
                     ReClassify.Visibility = Visibility.Visible;
@@ -240,7 +240,10 @@ namespace OnTheSpot
                     registerView.SetFocusBarcode();
                 }
                 else if (qssView != null)
+                {
                     qssView.SetFocusEmployeeId();
+                    qssView.Note.Visibility = Visibility.Visible;
+                }
             }
 
         }

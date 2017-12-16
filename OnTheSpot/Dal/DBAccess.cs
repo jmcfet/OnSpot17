@@ -7,22 +7,23 @@ using OnTheSpot.EFStuff;
 using System.Diagnostics;
 using NLog;
 
+
 namespace OnTheSpot.Dal
 {
     public class DBAccess
     {
-        Entities db = new Entities();
+        BCSEntities db = new BCSEntities();
         Logger logger = LogManager.GetLogger("OnTheSpot");
-        Store1Entities dbOTS;
+        Store1Entities2 dbOTS;
 
         public DBAccess(string connectionstring)
         {
-            dbOTS = new Store1Entities(connectionstring);
+            dbOTS = new Store1Entities2();
         }
 
         public  OnTheSpot.Models.Employee GetEmployee(int empid)
         {
-            Employee emp = null;
+            OnTheSpot.EFStuff.Employees emp = null;
             string error = string.Empty;
             try
             {
@@ -183,7 +184,7 @@ namespace OnTheSpot.Dal
                  logger.Info(string.Format("Create new"));  
                  dbItem = new Item() { BarCode = item.BarCode, CustID = item.CustID, CreateDate = item.CreationDate };
                  dbItem.CatID = item.Category.ID;
-                 db.Items.AddObject(dbItem);
+                 db.Items.Add(dbItem);
              }
              else
              {
@@ -204,14 +205,14 @@ namespace OnTheSpot.Dal
 
              logger.Info(string.Format("SaveItem {0}", gss.ID));
              OnTheSpot.EFStuff.GSS dbItem = new OnTheSpot.EFStuff.GSS() { barcode = gss.BarCode, bin = gss.bin, time = gss.CreationDate,temp3 = "temp"};
-             db.GSSes.AddObject(dbItem);
+             db.GSSes.Add(dbItem);
              db.SaveChanges();
          }
          public string SaveQCS(string heatseal,string location)
          { 
 
              OnTheSpot.EFStuff.QCSInfo dbItem = new OnTheSpot.EFStuff.QCSInfo() {  HeatSeal=heatseal, Bin=location, Time = DateTime.Now };
-             db.QCSInfoes.AddObject(dbItem);
+             db.QCSInfoes.Add(dbItem);
              try
              {
                  db.SaveChanges();
@@ -269,12 +270,11 @@ namespace OnTheSpot.Dal
                 {
                     binDB = new Bin();
 //                    binDB.Category1 = new Category();
-                    db.Bins.AddObject(binDB);
+                    db.Bins.Add(binDB);
 
                 }
                 binDB.MaxWeight = bin.MaxWeight;
                 binDB.BarCode = bin.BarCode;
-                binDB.Category1 = db.Categories.Where(c => c.ID == bin.Category.ID).SingleOrDefault();
                 binDB.PhigidSlot = bin.PhidgetSlot;
             }
                 
@@ -295,8 +295,35 @@ namespace OnTheSpot.Dal
             return  db.Configurations.First().ShowPass;
            
         }
+        public OnTheSpot.Models.InterogatorInfo getInfoForInterogator(OnTheSpot.Models.AutoSortInfo  customerstuff)
+        {
+            double heatseal = double.Parse(customerstuff.HeatSeal);
+            OnTheSpot.Models.InterogatorInfo info = (from cust in dbOTS.Customers
+                                                     where cust.CustomerID == customerstuff.CustomerID
+                                                     from heat in dbOTS.Heatseals
+                                                     where heat.HeatsealID == heatseal
+                                                     select new OnTheSpot.Models.InterogatorInfo() {  HomePhone = cust.HomePhone, Email= cust.EMail, InvoiceReminder = cust.InvReminder,
+                     LastOrder = cust.LastOrder, Notes= cust.Notes, OpenDate = cust.OpenDate, HeatSealMessage = heat.Message }).SingleOrDefault();
 
-   
+            List<OnTheSpot.EFStuff.Contacts> contacts = (from contact in dbOTS.Contacts
+                                                      where contact.CustomerID == customerstuff.CustomerID
+                                                         select contact).ToList();
+            info.CustomerID = customerstuff.CustomerID.ToString();
+            info.OpenDateString = info.OpenDate.Value.ToShortDateString();
+            info.LastOrderString = info.LastOrder.Value.ToShortDateString();
+            info.issues = new List<string>();
+            info.resolutions = new List<string>();
+            foreach(OnTheSpot.EFStuff.Contacts contact  in contacts)
+            {
+                info.issues.Add(contact.Issue);
+                info.resolutions.Add(contact.Resolution);
+            }
+            info.currentIssue = info.issues[0];
+            info.currentResolution = info.resolutions[0];
+            return info;
+        }
+
+
     }
 
 

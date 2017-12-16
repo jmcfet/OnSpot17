@@ -35,10 +35,11 @@
             <TextBox  x:Name="EmployeeID"    HorizontalAlignment="Left" Height="23" Margin="281,10,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" KeyUp="EmployeeID_KeyUp"/>
         </Grid>
         <Grid x:Name="Loggedin"  Grid.Row="1" Visibility="Visible">
-            <TextBlock x:Name="msg" Style="{StaticResource TextLabel}" HorizontalAlignment="Left" Margin="85,10,0,0" VerticalAlignment="Top" Height="50" Width="379" FontSize="20"/>
-            <Button x:Name="ShowPass"  Content="Show Pass" HorizontalAlignment="Left" Margin="444,10,0,0" VerticalAlignment="Top" Width="75" Click="Pass_Click"/>
-            <Button Content="Logout" HorizontalAlignment="Left" Margin="604,10,0,0" VerticalAlignment="Top" Width="75" Click="Log_Click"/>
-            <Button Name="Saving" Content="Saving" HorizontalAlignment="Left"  Margin="700,10,0,0" VerticalAlignment="Top" Width="81" Visibility="Collapsed" Background="Green"/>
+            <TextBlock x:Name="msg" Style="{StaticResource TextLabel}" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="50" Width="379" FontSize="20"/>
+            <Button x:Name="ShowPass"  Content="Show Pass" HorizontalAlignment="Left" Margin="421,10,0,0" VerticalAlignment="Top" Width="65" Click="Pass_Click"/>
+            <Button Content="Logout" HorizontalAlignment="Left" Margin="499,10,0,0" VerticalAlignment="Top" Width="58" Click="Log_Click"/>
+            <Button Name="Saving" Content="Saving" HorizontalAlignment="Left"  Margin="700,10,0,0" VerticalAlignment="Top" Width="81" Visibility="Visible" Background="Green"/>
+            <Button Content="Interogator" HorizontalAlignment="Left" Margin="588,10,0,0" VerticalAlignment="Top" Width="67" Click="Integator_Click"/>
 
 
         </Grid>
@@ -56,7 +57,7 @@
                 <TextBlock  Grid.Column="0" Name="BarCodeLabel"
                          FontWeight="Bold" Style="{StaticResource TextLabel}" Margin="0,0,0,-2" >Item Barcode:</TextBlock>
                 <TextBlock Name="BarcodeLabel"  Height="30" HorizontalAlignment="Stretch" Text="Please scan item" TextAlignment="Center" Foreground="{StaticResource brushWatermarkForeground}"  Grid.Column="1" 
-                         Visibility="{Binding ElementName=Barcode, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" FontSize="16" Grid.ColumnSpan="2" Margin="0,0,-0.8,-8"  />
+                         Visibility="{Binding ElementName=Barcode, Path=Text.Length, Converter={StaticResource BooleanToVisibilityConverter}}" FontSize="16" Grid.ColumnSpan="2" Margin="0,0,-0.8,-8"  />
 
                 <TextBox  Foreground="White"
                          Background="Transparent" TextAlignment="Center"
